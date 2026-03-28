@@ -1,0 +1,284 @@
+/* Base layout */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-gradient: radial-gradient(circle at top left, #4f46e5, #0f172a);
+    --card-bg: rgba(15, 23, 42, 0.9);
+    --accent: #38bdf8;
+    --accent-soft: rgba(56, 189, 248, 0.12);
+    --text-main: #e5e7eb;
+    --text-muted: #9ca3af;
+    --border-subtle: rgba(148, 163, 184, 0.35);
+    --shadow-soft: 0 22px 45px rgba(15, 23, 42, 0.6);
+    --radius-lg: 20px;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--bg-gradient);
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 16px;
+}
+
+.page-wrapper {
+    width: 100%;
+    max-width: 1080px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.page-header {
+    text-align: left;
+    color: #e5e7eb;
+}
+
+.header-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    border: 1px solid var(--border-subtle);
+    background: rgba(15, 23, 42, 0.75);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+}
+
+.page-title {
+    margin: 10px 0 4px;
+    font-size: clamp(26px, 3.2vw, 34px);
+    letter-spacing: -0.03em;
+}
+
+.page-subtitle {
+    margin: 0;
+    max-width: 640px;
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+.main-card {
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    border: 1px solid rgba(148, 163, 184, 0.4);
+    padding: 22px 22px 20px;
+    backdrop-filter: blur(20px);
+}
+
+.section {
+    margin-bottom: 18px;
+}
+
+.section-title {
+    margin: 0 0 14px;
+    font-size: 16px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.lesson-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.lesson-item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 10px 14px;
+    padding: 10px 12px;
+    border-radius: 14px;
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.11), rgba(15, 23, 42, 0.3));
+}
+
+.lesson-item:nth-child(2n) {
+    background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.17), rgba(15, 23, 42, 0.3));
+}
+
+.lesson-number {
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    border: 1px solid rgba(148, 163, 184, 0.9);
+    background: rgba(15, 23, 42, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent);
+    box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.8);
+}
+
+.lesson-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.lesson-title {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.lesson-desc {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--text-muted);
+}
+
+.lesson-desc code {
+    font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 12px;
+    padding: 2px 4px;
+    border-radius: 5px;
+    background: rgba(15, 23, 42, 0.9);
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    color: #e0f2fe;
+}
+
+.extra-section {
+    margin-top: 8px;
+    padding-top: 12px;
+    border-top: 1px dashed rgba(148, 163, 184, 0.5);
+}
+
+.note-text {
+    margin-top: 6px;
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.page-footer {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+/* Animations */
+.fade-in {
+    opacity: 0;
+    transform: translateY(8px);
+    animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.page-header.fade-in {
+    animation-delay: 0.03s;
+}
+
+.main-card.fade-in {
+    animation-delay: 0.1s;
+}
+
+.page-footer.fade-in {
+    animation-delay: 0.2s;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    body {
+        padding: 20px 12px;
+    }
+
+    .main-card {
+        padding: 18px 16px 16px;
+    }
+
+    .lesson-item {
+        grid-template-columns: auto 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-title {
+        font-size: 24px;
+    }
+
+    .lesson-item {
+        padding: 9px 10px;
+    }
+
+    .lesson-desc {
+        font-size: 12px;
+    }
+}
+/* 22-style.css — намунавий CSS `22.html` учун */
+:root{
+  --bg:#f7f8fb;
+  --card:#ffffff;
+  --accent:#2563eb;
+  --text:#111827;
+  --muted:#6b7280;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:Segoe UI, Roboto, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:2rem;
+}
+.main-card{
+  background:var(--card);
+  padding:2rem;
+  border-radius:12px;
+  box-shadow:0 6px 18px rgba(15,23,42,0.08);
+  max-width:780px;
+  width:100%;
+  text-align:center;
+}
+h1{margin:0 0 0.5rem 0;font-size:clamp(1.25rem,2.5vw,2rem)}
+p{color:var(--muted);margin:0 0 1rem}
+.btn{
+  display:inline-block;
+  background:var(--accent);
+  color:#fff;
+  padding:0.6rem 1rem;
+  border-radius:8px;
+  text-decoration:none;
+  transition:transform .15s ease,box-shadow .15s ease;
+}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(37,99,235,0.18)}
+
+/* responsive helpers */
+@media (max-width:480px){
+  body{padding:1rem}
+  .main-card{padding:1rem;border-radius:10px}
+}
+
+/* simple fade-in */
+.fade-in{animation:fade .45s ease both}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}

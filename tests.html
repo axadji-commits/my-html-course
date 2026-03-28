@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testlar — HTML, CSS, JavaScript</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .test-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 32px;
+        }
+        .test-card {
+            background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+            padding: 32px;
+            border-radius: 12px;
+            color: white;
+            text-decoration: none;
+            display: block;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .test-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .test-card.css-card {
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+        }
+        .test-card.js-card {
+            background: linear-gradient(135deg, #facc15 0%, #eab308 100%);
+            color: white;
+        }
+        .test-card h3 {
+            margin: 0 0 12px 0;
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+        }
+        .test-card p {
+            margin: 0 0 16px 0;
+            font-size: 16px;
+            opacity: 0.95;
+            color: white;
+        }
+        .test-card .test-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            opacity: 0.9;
+            color: white;
+        }
+        .test-card .test-info span {
+            color: white;
+        }
+        .info-box {
+            margin-bottom: 20px;
+            padding: 12px 16px;
+            background: #e0f2fe;
+            border-left: 4px solid #38bdf8;
+            border-radius: 6px;
+        }
+        .info-box p {
+            margin: 0;
+            font-size: 16px;
+            color: #374151;
+        }
+
+        .refs a {
+            color: #1e40af;
+            font-weight: 600;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+        .refs a:hover {
+            text-decoration-thickness: 2px;
+        }
+        .refs h3 {
+            margin: 18px 0 10px;
+            font-size: 18px;
+            color: #0f172a;
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-inner">
+            <div class="logo">
+                <span class="logo-mark">&lt;/&gt;</span>
+                <span class="logo-text">Web Darslar</span>
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="nav-inner">
+            <a href="index.html">Bosh sahifa</a>
+            <a href="html/index.html">HTML</a>
+            <a href="css/index.html">CSS</a>
+            <a href="javascript/index.html">JavaScript</a>
+            <a href="react/index.html">React</a>
+            <a href="git/index.html">Git/GitHub</a>
+            <a href="playground.html">Emulyator</a>
+            <a href="tests.html">Testlar</a>
+            <a href="admin.html" style="color: #f7cb0b;">Admin</a>
+        </div>
+    </nav>
+
+    <main>
+        <section class="detail-section quiz-container">
+            <h2>Nazorat testlari</h2>
+            <p>Quyidagi testlardan birini tanlang va bilimingizni tekshiring. Har bir test alohida bo'lim bo'yicha savollar bilan to'ldirilgan.</p>
+            
+            <div class="info-box">
+                <p>
+                    <strong>ℹ️ Ma'lumot:</strong> Test natijalari brauzerning localStorage'iga saqlanadi. 
+                    <button onclick="korsatNatijalar()" style="margin-left: 8px; padding: 6px 12px; background: #38bdf8; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; font-weight: 500;">Saqlangan natijalarni ko'rish</button>
+                </p>
+            </div>
+
+            <div class="test-cards">
+                <a href="test-html.html" class="test-card">
+                    <h3>HTML Test</h3>
+                    <p>HTML asoslari, teglar, struktura, semantika va formalar bo'yicha test savollari.</p>
+                    <div class="test-info">
+                        <span>📝 30 ta savol</span>
+                    </div>
+                </a>
+
+                <a href="test-css.html" class="test-card css-card">
+                    <h3>CSS Test</h3>
+                    <p>CSS selektorlar, xususiyatlar, maket, Flexbox, Grid va responsiv dizayn bo'yicha test savollari.</p>
+                    <div class="test-info">
+                        <span>📝 30 ta savol</span>
+                    </div>
+                </a>
+
+                <a href="test-javascript.html" class="test-card js-card">
+                    <h3>JavaScript Test</h3>
+                    <p>JavaScript asoslari, o'zgaruvchilar, funksiyalar, DOM va eventlar bo'yicha test savollari.</p>
+                    <div class="test-info">
+                        <span>📝 30 ta savol</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <section class="detail-section refs" id="adabiyotlar">
+            <h2>Adabiyotlar va foydali manbalar</h2>
+            <p>Testlardan so‘ng mavzularni chuqurroq o‘rganish uchun quyidagi manbalar tavsiya etiladi. Avval rasmiy hujjatlar (MDN), keyin kitoblar va amaliy platformalarda mashq qiling.</p>
+
+            <h3>📚 Kitoblar — TOP ro‘yxat (kurslar bo‘yicha)</h3>
+            <p>Quyida har bir kurs uchun (HTML, CSS, JavaScript, React, Git/GitHub) eng foydali kitoblar jamlandi. Ro‘yxatda <strong>[UZ]</strong>, <strong>[RU]</strong>, <strong>[EN]</strong> belgilari bor.</p>
+
+            <h3>HTML</h3>
+            <ul>
+                <li><strong>[EN]</strong> Jon Duckett — “HTML &amp; CSS: Design and Build Websites”</li>
+                <li><strong>[EN]</strong> Elizabeth Castro, Bruce Hyslop — “HTML, XHTML &amp; CSS (Visual QuickStart Guide)”</li>
+                <li><strong>[EN]</strong> Ian Devlin — “HTML5 Multimedia”</li>
+                <li><strong>[EN]</strong> Steve Krug — “Don’t Make Me Think” (HTML sahifa tuzilishi/UX uchun ham foydali)</li>
+                <li><strong>[RU]</strong> Jon Duckett — “HTML и CSS. Разработка и дизайн веб‑сайтов”</li>
+                <li><strong>[RU]</strong> Jennifer Niederst Robbins — “Изучаем HTML5” (tarjimalari uchraydi)</li>
+                <li><strong>[UZ]</strong> “Web dasturlash asoslari” — HTML bo‘limlari <em>(muallif: OTM darsligi/qo‘llanmasiga qarab turlicha)</em></li>
+                <li><strong>[UZ]</strong> “HTML asoslari” / “Web sahifa tuzish asoslari” <em>(muallif: qo‘llanma nashriga qarab turlicha)</em></li>
+            </ul>
+
+            <h3>CSS</h3>
+            <ul>
+                <li><strong>[EN]</strong> Lea Verou — “CSS Secrets”</li>
+                <li><strong>[EN]</strong> Eric A. Meyer — “CSS: The Definitive Guide”</li>
+                <li><strong>[EN]</strong> Andy Budd — “CSS Mastery”</li>
+                <li><strong>[EN]</strong> Rachel Andrew — “The New CSS Layout” (Grid/Flexbox)</li>
+                <li><strong>[EN]</strong> Adam Wathan, Steve Schoger — “Refactoring UI” (dizayn fikrlash)</li>
+                <li><strong>[RU]</strong> Eric A. Meyer — “CSS. Подробное руководство”</li>
+                <li><strong>[RU]</strong> Lea Verou — “Секреты CSS” (tarjimalari uchraydi)</li>
+                <li><strong>[UZ]</strong> “HTML va CSS asoslari” — layout va responsiv bo‘limlar <em>(muallif: qo‘llanma nashriga qarab turlicha)</em></li>
+            </ul>
+
+            <h3>JavaScript</h3>
+            <ul>
+                <li><strong>[EN]</strong> Marijn Haverbeke — “Eloquent JavaScript”</li>
+                <li><strong>[EN]</strong> David Flanagan — “JavaScript: The Definitive Guide”</li>
+                <li><strong>[EN]</strong> Kyle Simpson — “You Don’t Know JS Yet” (seriya)</li>
+                <li><strong>[EN]</strong> Addy Osmani — “Learning JavaScript Design Patterns”</li>
+                <li><strong>[EN]</strong> Axel Rauschmayer — “JavaScript for impatient programmers”</li>
+                <li><strong>[RU]</strong> David Flanagan — “JavaScript. Подробное руководство”</li>
+                <li><strong>[RU]</strong> Marijn Haverbeke — “Выразительный JavaScript”</li>
+                <li><strong>[UZ]</strong> “JavaScript asoslari” — DOM, event, amaliy mashqlar <em>(muallif: qo‘llanma nashriga qarab turlicha)</em></li>
+            </ul>
+
+            <h3>React</h3>
+            <ul>
+                <li><strong>[EN]</strong> Kent C. Dodds — “Epic React” (amaliy kurs/kitob formatida)</li>
+                <li><strong>[EN]</strong> Alex Banks, Eve Porcello — “Learning React”</li>
+                <li><strong>[EN]</strong> Robin Wieruch — “The Road to React”</li>
+                <li><strong>[EN]</strong> Redux docs (kitob emas, lekin React ekotizimi uchun muhim)</li>
+                <li><strong>[EN]</strong> React docs (kitob emas, lekin eng rasmiy manba)</li>
+                <li><strong>[RU]</strong> “React. Быстрый старт / Практическое руководство” (rus tilidagi qo‘llanmalar)</li>
+                <li><strong>[RU]</strong> “Современный React (Hooks)” (ruscha qo‘llanmalar)</li>
+                <li><strong>[UZ]</strong> “Frontend dasturlash” — komponentlar va amaliy loyiha bo‘limlari <em>(muallif: qo‘llanma nashriga qarab turlicha)</em></li>
+            </ul>
+
+            <h3>Git &amp; GitHub</h3>
+            <ul>
+                <li><strong>[EN]</strong> Scott Chacon, Ben Straub — “Pro Git”</li>
+                <li><strong>[EN]</strong> Ryan Hodson — “Ry’s Git Tutorial” (qo‘llanma sifatida mashhur)</li>
+                <li><strong>[EN]</strong> Atlassian Git Tutorials (amaliy qo‘llanma)</li>
+                <li><strong>[EN]</strong> “GitHub Skills” (amaliy laboratoriyalar)</li>
+                <li><strong>[RU]</strong> “Pro Git” (ruscha tarjimalari mavjud)</li>
+                <li><strong>[RU]</strong> “Git для профессионального программиста” (ruscha qo‘llanmalar)</li>
+                <li><strong>[UZ]</strong> “Git va GitHub asoslari” <em>(muallif: qo‘llanma nashriga qarab turlicha)</em></li>
+                <li><strong>[UZ]</strong> “Versiya boshqaruvi asoslari” <em>(muallif: OTM darsligi/qo‘llanmasiga qarab turlicha)</em></li>
+            </ul>
+
+            <h3>Qo‘shimcha: kod sifati va UI/UX</h3>
+            <ul>
+                <li><strong>[EN]</strong> Robert C. Martin — “Clean Code”</li>
+                <li><strong>[EN]</strong> Martin Fowler — “Refactoring”</li>
+                <li><strong>[EN]</strong> Steve Krug — “Don’t Make Me Think”</li>
+                <li><strong>[EN]</strong> Andrew Hunt, David Thomas — “The Pragmatic Programmer”</li>
+                <li><strong>[RU]</strong> Robert C. Martin — “Чистый код”</li>
+                <li><strong>[RU]</strong> Martin Fowler — “Рефакторинг”</li>
+                <li><strong>[RU]</strong> Steve Krug — “Не заставляйте меня думать!”</li>
+                <li><strong>[UZ]</strong> “Web dizayn asoslari” <em>(muallif: darslik/qo‘llanma nashriga qarab turlicha)</em></li>
+            </ul>
+
+            <p>
+                O‘zbekcha materiallarni qonuniy manbalardan topish uchun:
+                <a href="https://ziyonet.uz/" target="_blank" rel="noopener noreferrer">ZiyoNET</a>,
+                <a href="https://kitob.uz/" target="_blank" rel="noopener noreferrer">kitob.uz</a>
+                va OTMlar e-kutubxonalaridan foydalaning. Ruscha/inglizcha kitoblar uchun esa LitRes, Ozon, Chитай‑город kabi do‘konlar va kutubxonalar orqali izlang.
+            </p>
+
+            <h3>🌐 Rasmiy onlayn manbalar</h3>
+            <ul>
+                <li><a href="https://developer.mozilla.org/" target="_blank" rel="noopener noreferrer">MDN Web Docs</a> — HTML/CSS/JS bo‘yicha eng ishonchli hujjatlar</li>
+                <li><a href="https://web.dev/" target="_blank" rel="noopener noreferrer">web.dev</a> — zamonaviy web amaliyotlari, performance, SEO</li>
+                <li><a href="https://html.spec.whatwg.org/" target="_blank" rel="noopener noreferrer">HTML Standard (WHATWG)</a> — HTML rasmiy standart</li>
+                <li><a href="https://www.w3.org/TR/CSS/" target="_blank" rel="noopener noreferrer">W3C CSS Specifications</a> — CSS standart hujjatlari</li>
+                <li><a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/" target="_blank" rel="noopener noreferrer">ECMAScript (JS) — ECMA-262</a> — JavaScript tili standarti</li>
+            </ul>
+
+            <h3>✅ Tekshirish (validator) va amaliyot</h3>
+            <ul>
+                <li><a href="https://validator.w3.org/" target="_blank" rel="noopener noreferrer">W3C HTML Validator</a> — HTML xatolarini tekshiradi</li>
+                <li><a href="https://jigsaw.w3.org/css-validator/" target="_blank" rel="noopener noreferrer">W3C CSS Validator</a> — CSS xatolarini tekshiradi</li>
+                <li><a href="https://codepen.io/" target="_blank" rel="noopener noreferrer">CodePen</a> — tezkor HTML/CSS/JS mashq qilish</li>
+                <li><a href="https://jsfiddle.net/" target="_blank" rel="noopener noreferrer">JSFiddle</a> — kichik kodlarni sinash</li>
+                <li><a href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub</a> va <a href="https://docs.github.com/" target="_blank" rel="noopener noreferrer">GitHub Docs</a> — loyihalarni joylash va jamoa bilan ishlash</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; Atadjanov X. Web Darslar</p>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

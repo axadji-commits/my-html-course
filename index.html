@@ -1,2 +1,206 @@
-hjmjyujyuj
-yjy
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frontend darslari — HTML, CSS, JavaScript, React, Git/GitHub</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-inner">
+            <div class="logo">
+                <span class="logo-mark">&lt;/&gt;</span>
+                <span class="logo-text">Web Darslar</span>
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="nav-inner">
+            <a href="index.html">Bosh sahifa</a>
+            <a href="html/index.html">HTML</a>
+            <a href="css/index.html">CSS</a>
+            <a href="javascript/index.html">JavaScript</a>
+            <a href="react/index.html">React</a>
+            <a href="git/index.html">Git/GitHub</a>
+            <a href="playground.html">Emulyator</a>
+            <a href="tests.html">Testlar</a>
+            <a href="admin.html" style="color: #f7cb0b;">Admin</a>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Frontend dasturlashni 0 dan o'rganing</h1>
+                <p>
+                    HTML, CSS, JavaScript, React va Git/GitHub bo'yicha sodda, tushunarli va o'zbek tilidagi qo'llanma.
+                    Har bir bo'limda nazariya, misol va kichik topshiriqlar.
+                </p>
+                <div class="hero-actions">
+                    <button onclick="greetUser()">Boshlash</button>
+                    <span id="greeting" class="hero-greeting"></span>
+                </div>
+            </div>
+</section>
+
+        <section class="topics">
+            <div class="topics-grid">
+                <a href="html/index.html" class="topic-card html-card">
+                    <h2>HTML asoslari</h2>
+                    <p>Teglar, struktura, semantika, formalar va tablitsalar.</p>
+                    <span class="pill">Birinchi qadam</span>
+                </a>
+
+                <a href="css/index.html" class="topic-card css-card">
+                    <h2>CSS dizayn</h2>
+                    <p>Rang, shrift, maket, Flexbox, Grid va responsiv dizayn.</p>
+                    <span class="pill">Chiroyli sahifalar</span>
+                </a>
+
+                <a href="javascript/index.html" class="topic-card js-card">
+                    <h2>JavaScript</h2>
+                    <p>O'zgaruvchi, funksiya, DOM bilan ishlash va eventlar.</p>
+                    <span class="pill">Sahifani jonlang</span>
+                </a>
+
+                <a href="react/index.html" class="topic-card react-card">
+                    <h2>React</h2>
+                    <p>Komponentlar, props, state, hooklar va kichik SPA loyiha.</p>
+                    <span class="pill">Zamonaviy frontend</span>
+                </a>
+            </div>
+        </section>
+
+        <section id="html" class="detail-section">
+            <h2>HTML — veb sahifaning asosi</h2>
+            <p>
+                HTML (HyperText Markup Language) veb sahifaning skeletidir. U orqali matn, rasm, havola,
+                jadval va formalarni belgilaymiz.
+            </p>
+            <ul>
+                <li>HTMLga kirish: teg, atribut, element tushunchasi</li>
+                <li>Sahifa strukturası: <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code>, <code>&lt;body&gt;</code></li>
+                <li>Matn teglari: <code>&lt;h1&gt;</code>–<code>&lt;h6&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;span&gt;</code>, <code>&lt;br&gt;</code></li>
+                <li>Havolalar va rasmlar: <code>&lt;a&gt;</code>, <code>&lt;img&gt;</code></li>
+                <li>Ro'yxatlar: <code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code>, <code>&lt;li&gt;</code></li>
+                <li>Jadvallar: <code>&lt;table&gt;</code>, <code>&lt;tr&gt;</code>, <code>&lt;td&gt;</code>, <code>&lt;th&gt;</code></li>
+                <li>Formalar: <code>&lt;form&gt;</code>, <code>&lt;input&gt;</code>, <code>&lt;select&gt;</code>, <code>&lt;textarea&gt;</code></li>
+                <li>Semantik teglar: <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;footer&gt;</code></li>
+                <li>Meta teglar va SEO uchun asosiy belgi qo'yish</li>
+            </ul>
+            <div class="code-example">
+                <div class="code-header">Oddiy HTML sahifa misoli</div>
+                <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="uz"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title>Mening birinchi sahifam&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Assalomu alaykum!&lt;/h1&gt;
+    &lt;p&gt;Bu men yaratgan birinchi HTML sahifa.&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+            </div>
+        </section>
+
+        <section id="css" class="detail-section">
+            <h2>CSS — dizayn va bezak</h2>
+            <p>
+                CSS yordamida HTML elementlarining tashqi ko'rinishiga ta'sir qilamiz: rang, o'lcham, joylashuv,
+                chegara, fon, animatsiya va hokazo.
+            </p>
+            <ul>
+                <li>CSSga kirish: ulantirish usullari (inline, internal, external)</li>
+                <li>Asosiy selektorlar: teg, klass, identifikator, kombinatsiya selektorlar</li>
+                <li>Box model: margin, border, padding, content, <code>box-sizing</code></li>
+                <li>Ranglar, fon va chegara: <code>background</code>, <code>border-radius</code>, soyalar</li>
+                <li>Shrift va matn: <code>font-family</code>, o'lcham, qatoraro masofa, yuzasini o'zgartirish</li>
+                <li>Maket: <code>display</code>, <code>position</code>, <code>z-index</code></li>
+                <li>Flexbox asoslari: konteyner va element xususiyatlari</li>
+                <li>CSS Grid asoslari: qator va ustunlar bilan ishlash</li>
+                <li>Responsiv dizayn: <code>@media</code> qoidalari va breakpointlar</li>
+                <li>Holatlar va animatsiya: <code>:hover</code>, <code>transition</code>, <code>@keyframes</code></li>
+            </ul>
+            <div class="code-example">
+                <div class="code-header">Matnni markazga joylash va rang berish</div>
+                <pre><code>body {
+  font-family: "Segoe UI", sans-serif;
+  background-color: #f5f5f5;
+}
+
+h1 {
+  color: #4f46e5;
+  text-align: center;
+}</code></pre>
+            </div>
+        </section>
+
+        <section id="js" class="detail-section">
+            <h2>JavaScript — sahifaga harakat qo'shish</h2>
+            <p>
+                JavaScript brauzer ichida ishlaydigan til bo'lib, tugmalar, formalar va dinamik kontent
+                orqali foydalanuvchi bilan aloqa qiladi.
+            </p>
+            <ul>
+                <li>JavaScriptga kirish: qator, raqam, logik qiymatlar</li>
+                <li>O'zgaruvchilar: <code>let</code>, <code>const</code>, turlar bilan ishlash</li>
+                <li>Ifodalar va shartlar: <code>if</code>, <code>else</code>, <code>switch</code></li>
+                <li>Tsikllar: <code>for</code>, <code>while</code>, <code>for...of</code></li>
+                <li>Funksiyalar: oddiy funksiya, strelka funksiyalar</li>
+                <li>Massiv va objectlar bilan ishlash</li>
+                <li>DOM bilan ishlash: element tanlash, matnni o'zgartirish, klass qo'shish</li>
+                <li>Eventlar: klik, forma yuborish, klaviatura eventlari</li>
+                <li>JSON va oddiy API dan ma'lumot olish (fetch)</li>
+            </ul>
+            <div class="code-example">
+                <div class="code-header">Tugma bosilganda xabar chiqarish</div>
+                <pre><code>&lt;button onclick="salomBer()"&gt;Meni bosing&lt;/button&gt;
+&lt;p id="natija"&gt;&lt;/p&gt;
+
+&lt;script&gt;
+  function salomBer() {
+    document.getElementById("natija").textContent =
+      "Assalomu alaykum, JavaScript ishladi!";
+  }
+&lt;/script&gt;</code></pre>
+            </div>
+        </section>
+
+        <section id="react" class="detail-section">
+            <h2>React — komponentli yondashuv</h2>
+            <p>
+                React — Facebook tomonidan yaratilgan front-end kutubxonasi bo'lib, katta veb-ilovalarni
+                qismlarga (komponentlarga) bo'lib, oson boshqarish imkonini beradi.
+            </p>
+            <ul>
+                <li>Reactga kirish: nega React, SPA tushunchasi</li>
+                <li>Sozlash: Create React App yoki Vite orqali loyiha ochish</li>
+                <li>Komponentlar: funksional komponent yaratish</li>
+                <li>Props: komponentga ma'lumot uzatish</li>
+                <li>State: <code>useState</code> hook orqali holat bilan ishlash</li>
+                <li>Effect: <code>useEffect</code> bilan tashqi ta'sirlarni boshqarish</li>
+                <li>Komponentlar o'rtasida ma'lumot ulashish</li>
+                <li>Oddiy router: bir necha sahifaga ajratish tushunchasi</li>
+                <li>Kichik loyiha: to'liq front-end CRUD yoki to-do list</li>
+            </ul>
+            <div class="code-example">
+                <div class="code-header">Oddiy React komponent misoli</div>
+                <pre><code>function Salom() {
+  return &lt;h1&gt;Assalomu alaykum, React!&lt;/h1&gt;;
+}
+
+export default Salom;</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; Atadjanov X. Web Darslar</p>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

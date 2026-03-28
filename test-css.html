@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Test — Nazorat testlari</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        @media (max-width: 768px) {
+            #userInfoGrid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-inner">
+            <div class="logo">
+                <span class="logo-mark">&lt;/&gt;</span>
+                <span class="logo-text">Web Darslar</span>
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="nav-inner">
+            <a href="index.html">Bosh sahifa</a>
+            <a href="html/index.html">HTML</a>
+            <a href="css/index.html">CSS</a>
+            <a href="javascript/index.html">JavaScript</a>
+            <a href="react/index.html">React</a>
+            <a href="git/index.html">Git/GitHub</a>
+            <a href="playground.html">Emulyator</a>
+            <a href="tests.html">Testlar</a>
+            <a href="admin.html" style="color: #f7cb0b;">Admin</a>
+        </div>
+    </nav>
+
+    <main>
+        <section class="detail-section quiz-container">
+            <h2>CSS Test</h2>
+            <p>Quyidagi savollar CSS bo'yicha asosiy tushunchalarni tekshiradi. Test topshirishdan oldin ism va familiyangizni kiriting.</p>
+            
+            <div style="margin-bottom: 20px; padding: 12px 16px; background: #e0f2fe; border-left: 4px solid #38bdf8; border-radius: 6px;">
+                <p style="margin: 0; font-size: 16px; color: #374151;">
+                    <strong>ℹ️ Ma'lumot:</strong> Test natijalari brauzerning localStorage'iga saqlanadi. 
+                    <button onclick="korsatNatijalar()" style="margin-left: 8px; padding: 6px 12px; background: #38bdf8; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; font-weight: 500;">Saqlangan natijalarni ko'rish</button>
+                </p>
+            </div>
+
+            <!-- Foydalanuvchi ma'lumotlari formasi -->
+            <div id="userInfoForm" style="margin-bottom: 24px; padding: 20px; background: #f9fafb; border-radius: 8px; border: 2px solid #38bdf8;">
+                <h3 style="margin-top: 0; margin-bottom: 16px; color: #374151; font-size: 20px;">Foydalanuvchi ma'lumotlari</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;" id="userInfoGrid">
+                    <div>
+                        <label for="ism" style="display: block; margin-bottom: 8px; font-weight: 600; color: #374151; font-size: 16px;">Ism *</label>
+                        <input type="text" id="ism" name="ism" required style="width: 100%; padding: 10px 12px; border: 2px solid #d1d5db; border-radius: 6px; font-size: 16px; box-sizing: border-box;">
+                    </div>
+                    <div>
+                        <label for="familiya" style="display: block; margin-bottom: 8px; font-weight: 600; color: #374151; font-size: 16px;">Familiya *</label>
+                        <input type="text" id="familiya" name="familiya" required style="width: 100%; padding: 10px 12px; border: 2px solid #d1d5db; border-radius: 6px; font-size: 16px; box-sizing: border-box;">
+                    </div>
+                </div>
+                <button type="button" id="startTestBtn" onclick="startTest()" style="padding: 12px 24px; background: #38bdf8; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 16px;">Testni boshlash</button>
+            </div>
+
+            <!-- Test formasi (dastlab yashirin) -->
+            <form id="quizForm" style="display: none;">
+                <div class="question-card">
+                    <h3>1. CSSni HTMLga ulash uchun to'g'ri teg qaysi?</h3>
+                    <label><input type="radio" name="q1" value="a"> &lt;style src="style.css"&gt;</label>
+                    <label><input type="radio" name="q1" value="b"> &lt;css href="style.css"&gt;</label>
+                    <label><input type="radio" name="q1" value="c"> &lt;link rel="stylesheet" href="style.css"&gt;</label>
+                </div>
+
+                <div class="question-card">
+                    <h3>2. Box modelda element atrofidagi tashqi bo'shliq qaysi?</h3>
+                    <label><input type="radio" name="q2" value="a"> padding</label>
+                    <label><input type="radio" name="q2" value="b"> margin</label>
+                    <label><input type="radio" name="q2" value="c"> border</label>
+                </div>
+
+                <div class="question-card">
+                    <h3>3. CSSda elementni markazga joylashtirish uchun qaysi xususiyat ishlatiladi?</h3>
+                    <label><input type="radio" name="q3" value="a"> align: center;</label>
+                    <label><input type="radio" name="q3" value="b"> text-align: center;</label>
+                    <label><input type="radio" name="q3" value="c"> position: center;</label>
+                </div>
+
+                <div class="question-card">
+                    <h3>4. CSSda rangni belgilash uchun qaysi xususiyat ishlatiladi?</h3>
+                    <label><input type="radio" name="q4" value="a"> background-color</label>
+                    <label><input type="radio" name="q4" value="b"> color</label>
+                    <label><input type="radio" name="q4" value="c"> text-color</label>
+                </div>
+
+                <div class="question-card">
+                    <h3>5. CSSda id orqali elementni tanlash uchun qaysi belgi ishlatiladi?</h3>
+                    <label><input type="radio" name="q5" value="a"> . (nuqta)</label>
+                    <label><input type="radio" name="q5" value="b"> # (hash)</label>
+                    <label><input type="radio" name="q5" value="c"> * (yulduzcha)</label>
+                </div>
+
+                <div class="question-card">
+                    <h3>6. CSSda class orqali elementni tanlash uchun qaysi belgi ishlatiladi?</h3>
+                    <label><input type="radio" name="q6" value="a"> . (nuqta)</label>
+                    <label><input type="radio" name="q6" value="b"> # (hash)</label>
+                    <label><input type="radio" name="q6" value="c"> : (ikki nuqta)</label>
+                </div>
+
+                <div class="question-card">
+                    <h3>7. CSSda Flexbox konteynerini yaratish uchun qaysi xususiyat ishlatiladi?</h3>
+                    <label><input type="radio" name="q7" value="a"> display: flex;</label>
+                    <label><input type="radio" name="q7" value="b"> layout: flex;</label>
+                    <label><input type="radio" name="q7" value="c"> flex: true;</label>
+                </div>
+
+                <div class="question-card">
+                    <h3>8. CSSda Grid konteynerini yaratish uchun qaysi xususiyat ishlatiladi?</h3>
+                    <label><input type="radio" name="q8" value="a"> display: grid;</label>
+                    <label><input type="radio" name="q8" value="b"> layout: grid;</label>
+                    <label><input type="radio" name="q8" value="c"> grid: true;</label>
+                </div>
+
+                <div class="question-card">
+                    <h3>9. CSSda responsiv dizayn uchun qaysi qoida ishlatiladi?</h3>
+                    <label><input type="radio" name="q9" value="a"> @media</label>
+                    <label><input type="radio" name="q9" value="b"> @responsive</label>
+                    <label><input type="radio" name="q9" value="c"> @screen</label>
+                </div>
+
+                <div class="question-card">
+                    <h3>10. CSSda o'zgaruvchi (variable) e'lon qilish uchun qaysi sintaksis ishlatiladi?</h3>
+                    <label><input type="radio" name="q10" value="a"> var: --nom;</label>
+                    <label><input type="radio" name="q10" value="b"> --nom: qiymat;</label>
+                    <label><input type="radio" name="q10" value="c"> variable --nom = qiymat;</label>
+                </div>
+
+                <div class="question-card">
+                    <h3>11. CSSda fon rangi belgilash uchun qaysi xususiyat ishlatiladi?</h3>
+                    <label><input type="radio" name="q11" value="a"> background-color</label>
+                    <label><input type="radio" name="q11" value="b"> color</label>
+                    <label><input type="radio" name="q11" value="c"> bg-color</label>
+                </div>
+
+                <div class="question-card">
+                    <h3>12. CSSda shrift o'lchamini belgilash uchun qaysi xususiyat ishlatiladi?</h3>
+                    <label><input type="radio" name="q12" value="a"> font-size</label>
+                    <label><input type="radio" name="q12" value="b"> text-size</label>
+                    <label><input type="radio" name="q12" value="c"> size</label>
+                </div>
+
+                <div class="question-card">
+                    <h3>13. CSSda shrift oilasini belgilash uchun qaysi xususiyat ishlatiladi?</h3>
+                    <label><input type="radio" name="q13" value="a"> font-family</label>
+                    <label><input type="radio" name="q13" value="b"> text-family</label>
+                    <label><input type="radio" name="q13" value="c"> family</label>
+                </div>
+
+                <div class="question-card">
+                    <h3>14. CSSda element kengligini belgilash uchun qaysi xususiyat ishlatiladi?</h3>
+                    <label><input type="radio" name="q14" value="a"> width</label>
+                    <label><input type="radio" name="q14" value="b"> w</label>
+                    <label><input type="radio" name="q14" value="c"> size</label>
+                </div>
+
+                <div class="question-card">
+                    <h3>15. CSSda element balandligini belgilash uchun qaysi xususiyat ishlatiladi?</h3>
+                    <label><input type="radio" name="q15" value="a"> height</label>
+                    <label><input type="radio" name="q15" value="b"> h</label>
+                    <label><input type="radio" name="q15" value="c"> tall</label>
+                </div>
+
+                <div class="question-card">
+                    <h3>16. CSSda element ichidagi bo'shliqni belgilash uchun qaysi xususiyat ishlatiladi?</h3>
+                    <label><input type="radio" name="q16" value="a"> padding</label>
+                    <label><input type="radio" name="q16" value="b"> margin</label>
+                    <label><input type="radio" name="q16" value="c"> spacing</label>
+                </div>
+
+                <div class="question-card">
+                    <h3>17. CSSda chetini (border) belgilash uchun qaysi xususiyat ishlatiladi?</h3>
+                    <label><input type="radio" name="q17" value="a"> border</label>
+                    <label><input type="radio" name="q17" value="b"> edge</label>
+                    <label><input type="radio" name="q17" value="c"> outline</label>
+                </div>
+
+                <div class="question-card">
+                    <h3>18. CSSda elementni yashirish uchun qaysi xususiyat ishlatiladi?</h3>
+                    <label><input type="radio" name="q18" value="a"> display: none;</label>
+                    <label><input type="radio" name="q18" value="b"> visibility: hide;</label>
+                    <label><input type="radio" name="q18" value="c"> hide: true;</label>
+                </div>
+
+                <div class="question-card">
+                    <h3>19. CSSda elementni ko'rsatish uchun qaysi xususiyat ishlatiladi?</h3>
+                    <label><input type="radio" name="q19" value="a"> display: block;</label>
+                    <label><input type="radio" name="q19" value="b"> show: true;</label>
+                    <label><input type="radio" name="q19" value="c"> visible: true;</label>
+                </div>
+
+                <div class="question-card">
+                    <h3>20. CSSda element pozitsiyasini belgilash uchun qaysi xususiyat ishlatiladi?</h3>
+                    <label><input type="radio" name="q20" value="a"> position</label>
+                    <label><input type="radio" name="q20" value="b"> location</label>
+                    <label><input type="radio" name="q20" value="c"> place</label>
+                </div>
+
+                <div class="question-card">
+                    <h3>21. CSSda elementni chapga joylashtirish uchun qaysi xususiyat ishlatiladi?</h3>
+                    <label><input type="radio" name="q21" value="a"> float: left;</label>
+                    <label><input type="radio" name="q21" value="b"> align: left;</label>
+                    <label><input type="radio" name="q21" value="c"> position: left;</label>
+                </div>
+
+                <div class="question-card">
+                    <h3>22. CSSda elementni o'ngga joylashtirish uchun qaysi xususiyat ishlatiladi?</h3>
+                    <label><input type="radio" name="q22" value="a"> float: right;</label>
+                    <label><input type="radio" name="q22" value="b"> align: right;</label>
+                    <label><input type="radio" name="q22" value="c"> position: right;</label>
+                </div>
+
+                <div class="question-card">
+                    <h3>23. CSSda soya (shadow) qo'shish uchun qaysi xususiyat ishlatiladi?</h3>
+                    <label><input type="radio" name="q23" value="a"> box-shadow</label>
+                    <label><input type="radio" name="q23" value="b"> shadow</label>
+                    <label><input type="radio" name="q23" value="c"> text-shadow</label>
+                </div>
+
+                <div class="question-card">
+                    <h3>24. CSSda gradient yaratish uchun qaysi funksiya ishlatiladi?</h3>
+                    <label><input type="radio" name="q24" value="a"> linear-gradient()</label>
+                    <label><input type="radio" name="q24" value="b"> gradient()</label>
+                    <label><input type="radio" name="q24" value="c"> color-gradient()</label>
+                </div>
+
+                <div class="question-card">
+                    <h3>25. CSSda transformatsiya qilish uchun qaysi xususiyat ishlatiladi?</h3>
+                    <label><input type="radio" name="q25" value="a"> transform</label>
+                    <label><input type="radio" name="q25" value="b"> change</label>
+                    <label><input type="radio" name="q25" value="c"> modify</label>
+                </div>
+
+                <div class="question-card">
+                    <h3>26. CSSda o'tish (transition) effekti uchun qaysi xususiyat ishlatiladi?</h3>
+                    <label><input type="radio" name="q26" value="a"> transition</label>
+                    <label><input type="radio" name="q26" value="b"> animation</label>
+                    <label><input type="radio" name="q26" value="c"> effect</label>
+                </div>
+
+                <div class="question-card">
+                    <h3>27. CSSda animatsiya yaratish uchun qaysi xususiyat ishlatiladi?</h3>
+                    <label><input type="radio" name="q27" value="a"> animation</label>
+                    <label><input type="radio" name="q27" value="b"> animate</label>
+                    <label><input type="radio" name="q27" value="c"> move</label>
+                </div>
+
+                <div class="question-card">
+                    <h3>28. CSSda z-index qanday ishlatiladi?</h3>
+                    <label><input type="radio" name="q28" value="a"> Elementlarning qatlam tartibini belgilash uchun</label>
+                    <label><input type="radio" name="q28" value="b"> Element kengligini belgilash uchun</label>
+                    <label><input type="radio" name="q28" value="c"> Element balandligini belgilash uchun</label>
+                </div>
+
+                <div class="question-card">
+                    <h3>29. CSSda overflow qanday ishlatiladi?</h3>
+                    <label><input type="radio" name="q29" value="a"> Elementdan tashqariga chiqgan kontentni boshqarish uchun</label>
+                    <label><input type="radio" name="q29" value="b"> Element kengligini belgilash uchun</label>
+                    <label><input type="radio" name="q29" value="c"> Element balandligini belgilash uchun</label>
+                </div>
+
+                <div class="question-card">
+                    <h3>30. CSSda !important qanday ishlatiladi?</h3>
+                    <label><input type="radio" name="q30" value="a"> Xususiyatning ustuvorligini oshirish uchun</label>
+                    <label><input type="radio" name="q30" value="b"> Xususiyatni o'chirish uchun</label>
+                    <label><input type="radio" name="q30" value="c"> Xususiyatni qo'shish uchun</label>
+                </div>
+
+                <button type="button" onclick="gradeCssQuiz()">Natijani ko'rish</button>
+            </form>
+
+            <div id="quizResult" class="quiz-result"></div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2025 Web Darslar — CSS Test.</p>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
+

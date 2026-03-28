@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kod Emulyatori — Web Darslar</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .playground-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 24px 20px;
+        }
+
+        .playground-header {
+            margin-bottom: 24px;
+        }
+
+        .playground-header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #0f172a;
+            margin: 0 0 8px 0;
+        }
+
+        .playground-header p {
+            color: #64748b;
+            font-size: 16px;
+            margin: 0;
+        }
+
+        .playground-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 1024px) {
+            .playground-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .code-panel {
+            display: flex;
+            flex-direction: column;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .code-panel-header {
+            background: #f8fafc;
+            padding: 12px 16px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .code-panel-header h3 {
+            margin: 0;
+            font-size: 14px;
+            font-weight: 600;
+            color: #0f172a;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .code-panel-header.html h3 { color: #16a34a; }
+        .code-panel-header.css h3 { color: #0ea5e9; }
+        .code-panel-header.js h3 { color: #facc15; }
+
+        .code-panel textarea {
+            flex: 1;
+            width: 100%;
+            border: none;
+            padding: 16px;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            resize: vertical;
+            min-height: 200px;
+            max-height: 500px;
+            overflow-y: scroll;
+            overflow-x: auto;
+            background: #ffffff;
+            color: #0f172a;
+            outline: none;
+            white-space: pre;
+            word-wrap: normal;
+        }
+
+        .code-panel.html-panel textarea {
+            min-height: 400px;
+            max-height: 700px;
+        }
+
+        .code-panel textarea:focus {
+            background: #fafafa;
+        }
+
+        .code-panel.html-panel {
+            transition: all 0.3s ease;
+        }
+
+        .code-panel.html-panel textarea {
+            overflow-y: scroll;
+            overflow-x: hidden;
+            direction: ltr;
+            text-align: left;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+        }
+
+        .code-panel.html-panel.expanded textarea {
+            max-height: 1000px;
+            min-height: 600px;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            direction: ltr;
+            text-align: left;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+        }
+
+        .code-panel.css-panel {
+            transition: all 0.3s ease;
+        }
+
+        .code-panel.css-panel.expanded textarea {
+            max-height: 800px;
+            min-height: 400px;
+            overflow-y: scroll;
+            overflow-x: auto;
+        }
+
+        .code-panel textarea::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+
+        .code-panel textarea::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 6px;
+        }
+
+        .code-panel textarea::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 6px;
+        }
+
+        .code-panel textarea::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        .preview-panel {
+            display: flex;
+            flex-direction: column;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .preview-panel-header {
+            background: #f8fafc;
+            padding: 12px 16px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .preview-panel-header h3 {
+            margin: 0;
+            font-size: 14px;
+            font-weight: 600;
+            color: #0f172a;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .preview-panel iframe {
+            flex: 1;
+            width: 100%;
+            border: none;
+            min-height: 400px;
+            background: #ffffff;
+        }
+
+        .playground-actions {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .playground-actions button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-run {
+            background: #16a34a;
+            color: white;
+        }
+
+        .btn-run:hover {
+            background: #15803d;
+        }
+
+        .btn-reset {
+            background: #64748b;
+            color: white;
+        }
+
+        .btn-reset:hover {
+            background: #475569;
+        }
+
+        .btn-format:hover {
+            background: #7c3aed;
+        }
+
+        .btn-templates:hover {
+            background: #0284c7;
+        }
+
+        .templates-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .templates-modal.active {
+            display: flex;
+        }
+
+        .templates-content {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .templates-content h3 {
+            margin-top: 0;
+            color: #0f172a;
+        }
+
+        .template-item {
+            padding: 12px;
+            margin: 8px 0;
+            background: #f8fafc;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .template-item:hover {
+            background: #e0f2fe;
+            border-color: #0ea5e9;
+        }
+
+        .template-item h4 {
+            margin: 0 0 4px 0;
+            color: #1e40af;
+        }
+
+        .template-item p {
+            margin: 0;
+            font-size: 13px;
+            color: #64748b;
+        }
+
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-inner">
+            <div class="logo">
+                <span class="logo-mark">&lt;/&gt;</span>
+                <span class="logo-text">Web Darslar</span>
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="nav-inner">
+            <a href="index.html">Bosh sahifa</a>
+            <a href="html/index.html">HTML</a>
+            <a href="css/index.html">CSS</a>
+            <a href="javascript/index.html">JavaScript</a>
+            <a href="react/index.html">React</a>
+            <a href="git/index.html">Git/GitHub</a>
+            <a href="playground.html">Emulyator</a>
+            <a href="tests.html">Testlar</a>
+            <a href="admin.html" style="color: #f7cb0b;">Admin</a>
+        </div>
+    </nav>
+
+    <main>
+        <div class="playground-container">
+            <div class="playground-header">
+                <h1>Kod Emulyatori</h1>
+                <p>HTML, CSS va JavaScript kodlarini yozib, natijani darhol ko'ring. Kodlar avtomatik saqlanadi.</p>
+            </div>
+
+            <div class="playground-actions">
+                <button class="btn-run" onclick="runPlayground()">▶️ Ishga tushirish</button>
+                <button class="btn-reset" onclick="resetPlayground()">🔄 Tiklash</button>
+                <button class="btn-format" onclick="formatCode()" style="background: #8b5cf6; color: white;">✨ Formatlash</button>
+                <button class="btn-templates" onclick="showTemplates()" style="background: #0ea5e9; color: white;">📚 Misollar</button>
+                <button class="btn-validate" onclick="validateCode()" style="background: #f59e0b; color: white;">✅ Kodni tekshirish</button>
+            </div>
+            
+            <!-- Xatolar ko'rsatkich -->
+            <div id="validation-results" style="display: none; margin-bottom: 20px; padding: 16px; background: #fef3c7; border-left: 4px solid #f59e0b; border-radius: 8px;">
+                <h4 style="margin: 0 0 12px 0; color: #92400e; font-size: 16px;">⚠️ Kod tekshiruvi natijalari:</h4>
+                <div id="validation-errors" style="color: #92400e; font-size: 14px;"></div>
+            </div>
+
+            <div class="playground-layout">
+                <div style="display: flex; flex-direction: column; gap: 20px;">
+                    <div class="code-panel html-panel">
+                        <div class="code-panel-header html" style="cursor: pointer;" onclick="toggleHtmlPanel()">
+                            <h3>HTML</h3>
+                            <span id="html-toggle" style="font-size: 12px; color: #64748b;">▼</span>
+                        </div>
+                        <textarea id="pg-html" placeholder="HTML kodini bu yerga yozing..."></textarea>
+                    </div>
+
+                    <div class="code-panel css-panel">
+                        <div class="code-panel-header css" style="cursor: pointer;" onclick="toggleCssPanel()">
+                            <h3>CSS</h3>
+                            <span id="css-toggle" style="font-size: 12px; color: #64748b;">▼</span>
+                        </div>
+                        <textarea id="pg-css" placeholder="CSS kodini bu yerga yozing..."></textarea>
+                    </div>
+
+                    <div class="code-panel">
+                        <div class="code-panel-header js">
+                            <h3>JavaScript</h3>
+                        </div>
+                        <textarea id="pg-js" placeholder="JavaScript kodini bu yerga yozing..."></textarea>
+                    </div>
+                </div>
+
+                <div class="preview-panel">
+                    <div class="preview-panel-header">
+                        <h3>Natija (Preview)</h3>
+                    </div>
+                    <iframe id="pg-preview" title="Kod natijasi"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Templates Modal -->
+        <div id="templatesModal" class="templates-modal" onclick="if(event.target === this) closeTemplates()">
+            <div class="templates-content">
+                <h3>📚 Kod misollari</h3>
+                <p style="color: #64748b; margin-bottom: 16px;">Quyidagi misollardan birini tanlang va kodlar avtomatik yoziladi:</p>
+                <div class="template-item" onclick="loadTemplate('html-basic')">
+                    <h4>HTML — Asosiy struktura</h4>
+                    <p>HTML sahifa asosiy strukturası</p>
+                </div>
+                <div class="template-item" onclick="loadTemplate('html-form')">
+                    <h4>HTML — Forma</h4>
+                    <p>To'liq forma misoli</p>
+                </div>
+                <div class="template-item" onclick="loadTemplate('css-card')">
+                    <h4>CSS — Kartochka dizayni</h4>
+                    <p>Chiroyli kartochka dizayni</p>
+                </div>
+                <div class="template-item" onclick="loadTemplate('css-flexbox')">
+                    <h4>CSS — Flexbox layout</h4>
+                    <p>Flexbox yordamida layout</p>
+                </div>
+                <div class="template-item" onclick="loadTemplate('js-interactive')">
+                    <h4>JavaScript — Interaktiv sahifa</h4>
+                    <p>DOM manipulyatsiya va eventlar</p>
+                </div>
+                <div class="template-item" onclick="loadTemplate('full-example')">
+                    <h4>To'liq misol — HTML + CSS + JS</h4>
+                    <p>Barcha texnologiyalar bilan ishlash</p>
+                </div>
+                <button onclick="closeTemplates()" style="margin-top: 16px; padding: 10px 20px; background: #64748b; color: white; border: none; border-radius: 8px; cursor: pointer; width: 100%;">Yopish</button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2025 Web Darslar — Kod emulyatori.</p>
+    </footer>
+
+    <script src="scripts.js"></script>
+    <script>
+        function toggleHtmlPanel() {
+            const panel = document.querySelector('.html-panel');
+            const toggle = document.getElementById('html-toggle');
+            panel.classList.toggle('expanded');
+            toggle.textContent = panel.classList.contains('expanded') ? '▲' : '▼';
+        }
+
+        function toggleCssPanel() {
+            const panel = document.querySelector('.css-panel');
+            const toggle = document.getElementById('css-toggle');
+            panel.classList.toggle('expanded');
+            toggle.textContent = panel.classList.contains('expanded') ? '▲' : '▼';
+        }
+
+        // Kod formatlash funksiyasi
+        function formatCode() {
+            const htmlArea = document.getElementById('pg-html');
+            const cssArea = document.getElementById('pg-css');
+            const jsArea = document.getElementById('pg-js');
+
+            if (htmlArea && htmlArea.value.trim()) {
+                try {
+                    // Oddiy HTML formatlash
+                    let html = htmlArea.value;
+                    html = html.replace(/>\s+</g, '><');
+                    html = html.replace(/(<[^\/][^>]*>)/g, '\n$1');
+                    html = html.replace(/(<\/[^>]*>)/g, '$1\n');
+                    html = html.split('\n').filter(line => line.trim()).join('\n');
+                    
+                    // Indentatsiya qo'shish
+                    let indent = 0;
+                    html = html.split('\n').map(line => {
+                        const trimmed = line.trim();
+                        if (trimmed.startsWith('</')) indent = Math.max(0, indent - 1);
+                        const result = '  '.repeat(indent) + trimmed;
+                        if (trimmed.startsWith('<') && !trimmed.startsWith('</') && !trimmed.endsWith('/>')) indent++;
+                        return result;
+                    }).join('\n');
+                    
+                    htmlArea.value = html.trim();
+                } catch (e) {
+                    console.log('HTML formatlashda xato:', e);
+                }
+            }
+
+            if (cssArea && cssArea.value.trim()) {
+                try {
+                    let css = cssArea.value;
+                    css = css.replace(/\s*{\s*/g, ' {\n  ');
+                    css = css.replace(/;\s*/g, ';\n  ');
+                    css = css.replace(/\s*}\s*/g, '\n}\n');
+                    css = css.replace(/\n\s*\n/g, '\n');
+                    cssArea.value = css.trim();
+                } catch (e) {
+                    console.log('CSS formatlashda xato:', e);
+                }
+            }
+
+            if (jsArea && jsArea.value.trim()) {
+                try {
+                    let js = jsArea.value;
+                    js = js.replace(/\s*{\s*/g, ' {\n  ');
+                    js = js.replace(/;\s*/g, ';\n  ');
+                    js = js.replace(/\s*}\s*/g, '\n}\n');
+                    js = js.replace(/\n\s*\n/g, '\n');
+                    jsArea.value = js.trim();
+                } catch (e) {
+                    console.log('JS formatlashda xato:', e);
+                }
+            }
+
+            runPlayground();
+        }
+
+        // Templates funksiyalari
+        function showTemplates() {
+            document.getElementById('templatesModal').classList.add('active');
+        }
+
+        function closeTemplates() {
+            document.getElementById('templatesModal').classList.remove('active');
+        }
+
+        // Avtomatik kod tekshirish funksiyasi
+        function validateCode() {
+            const htmlArea = document.getElementById('pg-html');
+            const cssArea = document.getElementById('pg-css');
+            const jsArea = document.getElementById('pg-js');
+            const resultsDiv = document.getElementById('validation-results');
+            const errorsDiv = document.getElementById('validation-errors');
+            
+            let errors = [];
+            let warnings = [];
+            
+            // HTML tekshirish
+            if (htmlArea && htmlArea.value.trim()) {
+                const html = htmlArea.value;
+                
+                // Yopilmagan teglarni tekshirish
+                const openTags = html.match(/<[^\/!][^>]*>/g) || [];
+                const closeTags = html.match(/<\/[^>]+>/g) || [];
+                const selfClosingTags = html.match(/<[^>]+\/>/g) || [];
+                
+                const tagCounts = {};
+                openTags.forEach(tag => {
+                    const tagName = tag.match(/<(\w+)/)?.[1];
+                    if (tagName && !tag.includes('/>')) {
+                        tagCounts[tagName] = (tagCounts[tagName] || 0) + 1;
+                    }
+                });
+                
+                closeTags.forEach(tag => {
+                    const tagName = tag.match(/<\/(\w+)/)?.[1];
+                    if (tagName) {
+                        tagCounts[tagName] = (tagCounts[tagName] || 0) - 1;
+                    }
+                });
+                
+                Object.keys(tagCounts).forEach(tag => {
+                    if (tagCounts[tag] > 0) {
+                        errors.push(`HTML: &lt;${tag}&gt; tegi yopilmagan`);
+                    }
+                });
+                
+                // DOCTYPE tekshirish
+                if (!html.includes('<!DOCTYPE') && html.includes('<html')) {
+                    warnings.push('HTML: DOCTYPE deklaratsiyasi tavsiya etiladi');
+                }
+            }
+            
+            // CSS tekshirish
+            if (cssArea && cssArea.value.trim()) {
+                const css = cssArea.value;
+                
+                // Qavslarni tekshirish
+                const openBraces = (css.match(/{/g) || []).length;
+                const closeBraces = (css.match(/}/g) || []).length;
+                
+                if (openBraces !== closeBraces) {
+                    errors.push(`CSS: Qavslar mos kelmaydi (ochilgan: ${openBraces}, yopilgan: ${closeBraces})`);
+                }
+                
+                // Noto'g'ri sintaksisni tekshirish
+                const invalidPatterns = [
+                    { pattern: /:\s*;/g, message: 'CSS: Qiymatsiz xususiyatlar topildi' },
+                    { pattern: /{[^}]*$/gm, message: 'CSS: Yopilmagan qavslar topildi' }
+                ];
+                
+                invalidPatterns.forEach(({ pattern, message }) => {
+                    if (pattern.test(css)) {
+                        errors.push(message);
+                    }
+                });
+            }
+            
+            // JavaScript tekshirish
+            if (jsArea && jsArea.value.trim()) {
+                const js = jsArea.value;
+                
+                try {
+                    // Sintaksis tekshirish
+                    new Function(js);
+                } catch (e) {
+                    errors.push(`JavaScript: Sintaksis xatosi - ${e.message}`);
+                }
+                
+                // Qavslarni tekshirish
+                const openBraces = (js.match(/{/g) || []).length;
+                const closeBraces = (js.match(/}/g) || []).length;
+                const openParens = (js.match(/\(/g) || []).length;
+                const closeParens = (js.match(/\)/g) || []).length;
+                const openBrackets = (js.match(/\[/g) || []).length;
+                const closeBrackets = (js.match(/\]/g) || []).length;
+                
+                if (openBraces !== closeBraces) {
+                    errors.push(`JavaScript: Jingalak qavslar mos kelmaydi`);
+                }
+                if (openParens !== closeParens) {
+                    errors.push(`JavaScript: Oddiy qavslar mos kelmaydi`);
+                }
+                if (openBrackets !== closeBrackets) {
+                    errors.push(`JavaScript: Kvadrat qavslar mos kelmaydi`);
+                }
+            }
+            
+            // Natijalarni ko'rsatish
+            if (errors.length === 0 && warnings.length === 0) {
+                resultsDiv.style.display = 'block';
+                resultsDiv.style.background = '#dcfce7';
+                resultsDiv.style.borderLeftColor = '#16a34a';
+                errorsDiv.innerHTML = '<span style="color: #166534;">✅ Kodda xatolar topilmadi!</span>';
+            } else {
+                resultsDiv.style.display = 'block';
+                resultsDiv.style.background = '#fee2e2';
+                resultsDiv.style.borderLeftColor = '#dc2626';
+                let html = '';
+                if (errors.length > 0) {
+                    html += '<div style="margin-bottom: 8px;"><strong>Xatolar:</strong></div>';
+                    html += '<ul style="margin: 0; padding-left: 20px;">';
+                    errors.forEach(err => {
+                        html += `<li style="margin-bottom: 4px;">${err}</li>`;
+                    });
+                    html += '</ul>';
+                }
+                if (warnings.length > 0) {
+                    html += '<div style="margin-top: 12px; margin-bottom: 8px;"><strong>Ogohlantirishlar:</strong></div>';
+                    html += '<ul style="margin: 0; padding-left: 20px;">';
+                    warnings.forEach(warn => {
+                        html += `<li style="margin-bottom: 4px; color: #92400e;">${warn}</li>`;
+                    });
+                    html += '</ul>';
+                }
+                errorsDiv.innerHTML = html;
+            }
+            
+            // Scroll qilish
+            resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+        
+        // Avtomatik tekshirish (kod o'zgarganda)
+        let validationTimeout;
+        function setupAutoValidation() {
+            const htmlArea = document.getElementById('pg-html');
+            const cssArea = document.getElementById('pg-css');
+            const jsArea = document.getElementById('pg-js');
+            
+            [htmlArea, cssArea, jsArea].forEach(area => {
+                if (area) {
+                    area.addEventListener('input', function() {
+                        clearTimeout(validationTimeout);
+                        validationTimeout = setTimeout(() => {
+                            // Faqat kod bo'lsa tekshiradi
+                            if (htmlArea.value.trim() || cssArea.value.trim() || jsArea.value.trim()) {
+                                validateCode();
+                            } else {
+                                document.getElementById('validation-results').style.display = 'none';
+                            }
+                        }, 1000); // 1 soniya kutadi
+                    });
+                }
+            });
+        }
+        
+        // Sahifa yuklanganda avtomatik tekshirishni yoqish
+        document.addEventListener('DOMContentLoaded', function() {
+            setupAutoValidation();
+        });
+
+        function loadTemplate(type) {
+            const templates = {
+                'html-basic': {
+                    html: `<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mening sahifam</title>
+</head>
+<body>
+    <header>
+        <h1>Salom, Dunyo!</h1>
+    </header>
+    <main>
+        <p>Bu mening birinchi HTML sahifam.</p>
+    </main>
+    <footer>
+        <p>&copy; 2025</p>
+    </footer>
+</body>
+</html>`,
+                    css: '',
+                    js: ''
+                },
+                'html-form': {
+                    html: `<form>
+    <h2>Kontakt forma</h2>
+    <label>
+        Ism:
+        <input type="text" name="ism" required>
+    </label>
+    <label>
+        Email:
+        <input type="email" name="email" required>
+    </label>
+    <label>
+        Xabar:
+        <textarea name="xabar" rows="4"></textarea>
+    </label>
+    <button type="submit">Yuborish</button>
+</form>`,
+                    css: `form {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 4px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+button {
+  background: #1e40af;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}`,
+                    js: `document.querySelector('form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    alert('Forma yuborildi!');
+});`
+                },
+                'css-card': {
+                    html: `<div class="card">
+    <img src="https://via.placeholder.com/300" alt="Rasm">
+    <div class="card-content">
+        <h3>Kartochka sarlavhasi</h3>
+        <p>Bu kartochka dizayni misoli. CSS yordamida chiroyli ko'rinish yaratilgan.</p>
+        <button>Batafsil</button>
+    </div>
+</div>`,
+                    css: `.card {
+  max-width: 300px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  background: white;
+}
+
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 20px;
+}
+
+.card h3 {
+  margin: 0 0 10px 0;
+  color: #1e40af;
+}
+
+.card p {
+  color: #64748b;
+  line-height: 1.6;
+}
+
+.card button {
+  background: #1e40af;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+}`,
+                    js: ''
+                },
+                'css-flexbox': {
+                    html: `<div class="container">
+    <div class="item">1</div>
+    <div class="item">2</div>
+    <div class="item">3</div>
+    <div class="item">4</div>
+</div>`,
+                    css: `.container {
+  display: flex;
+  gap: 16px;
+  padding: 20px;
+  background: #f3f4f6;
+  border-radius: 12px;
+}
+
+.item {
+  flex: 1;
+  padding: 40px;
+  background: #1e40af;
+  color: white;
+  text-align: center;
+  border-radius: 8px;
+  font-size: 24px;
+  font-weight: bold;
+}`,
+                    js: ''
+                },
+                'js-interactive': {
+                    html: `<div class="counter">
+    <h2>Hisoblagich</h2>
+    <p id="count">0</p>
+    <button id="increment">+</button>
+    <button id="decrement">-</button>
+    <button id="reset">Tiklash</button>
+</div>`,
+                    css: `.counter {
+  text-align: center;
+  padding: 40px;
+  background: #f9fafb;
+  border-radius: 12px;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+#count {
+  font-size: 48px;
+  font-weight: bold;
+  color: #1e40af;
+  margin: 20px 0;
+}
+
+button {
+  padding: 10px 20px;
+  margin: 5px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#increment {
+  background: #16a34a;
+  color: white;
+}
+
+#decrement {
+  background: #dc2626;
+  color: white;
+}
+
+#reset {
+  background: #64748b;
+  color: white;
+}`,
+                    js: `let count = 0;
+const countEl = document.getElementById('count');
+const incrementBtn = document.getElementById('increment');
+const decrementBtn = document.getElementById('decrement');
+const resetBtn = document.getElementById('reset');
+
+function updateCount() {
+    countEl.textContent = count;
+}
+
+incrementBtn.addEventListener('click', function() {
+    count++;
+    updateCount();
+});
+
+decrementBtn.addEventListener('click', function() {
+    count--;
+    updateCount();
+});
+
+resetBtn.addEventListener('click', function() {
+    count = 0;
+    updateCount();
+});`
+                },
+                'full-example': {
+                    html: `<div class="app">
+    <h1>Vazifalar ro'yxati</h1>
+    <form id="todoForm">
+        <input type="text" id="todoInput" placeholder="Yangi vazifa...">
+        <button type="submit">Qo'shish</button>
+    </form>
+    <ul id="todoList"></ul>
+</div>`,
+                    css: `.app {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  color: #1e40af;
+  text-align: center;
+}
+
+#todoForm {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+#todoInput {
+  flex: 1;
+  padding: 10px;
+  border: 2px solid #e5e7eb;
+  border-radius: 6px;
+}
+
+button {
+  padding: 10px 20px;
+  background: #1e40af;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#todoList {
+  list-style: none;
+  padding: 0;
+}
+
+#todoList li {
+  padding: 12px;
+  margin: 8px 0;
+  background: #f3f4f6;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.delete-btn {
+  background: #dc2626;
+  padding: 6px 12px;
+  font-size: 12px;
+}`,
+                    js: `const form = document.getElementById('todoForm');
+const input = document.getElementById('todoInput');
+const list = document.getElementById('todoList');
+
+form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const text = input.value.trim();
+    if (text) {
+        addTodo(text);
+        input.value = '';
+    }
+});
+
+function addTodo(text) {
+    const li = document.createElement('li');
+    li.innerHTML = \`
+        <span>\${text}</span>
+        <button class="delete-btn" onclick="this.parentElement.remove()">O'chirish</button>
+    \`;
+    list.appendChild(li);
+}`
+                }
+            };
+
+            if (templates[type]) {
+                const htmlArea = document.getElementById('pg-html');
+                const cssArea = document.getElementById('pg-css');
+                const jsArea = document.getElementById('pg-js');
+                
+                if (htmlArea) htmlArea.value = templates[type].html || '';
+                if (cssArea) cssArea.value = templates[type].css || '';
+                if (jsArea) jsArea.value = templates[type].js || '';
+                
+                closeTemplates();
+                runPlayground();
+            }
+        }
+    </script>
+</body>
+</html>
+

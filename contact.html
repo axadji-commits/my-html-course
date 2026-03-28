@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aloqa</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Aloqa</h1>
+        <nav>
+            <a href="index.html">Asosiy sahifa</a>
+            <a href="about.html">Biz haqimizda</a>
+            <a href="services.html">Xizmatlar</a>
+            <a href="contact.html">Aloqa</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Biz bilan boglaning</h2>
+        <form id="contactForm">
+            <label for="name">Ismi:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Elektron pochta:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Xabar yoborish:</label>
+            <textarea id="message" name="message" required></textarea>
+
+            <button type="submit">Jo'natish</button>
+        </form>
+        <p id="status"></p>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 HTML, CSS, JavaScript bo'yicha sayt</p>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
